@@ -1,0 +1,35 @@
+
+
+<link rel="import" href="../../../polymer/polymer.html">
+<link rel="import" href="../../../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../../app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../../iron-localstorage/iron-localstorage.html">
+
+<dom-module id="dev-checklist">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+  <app-drawer-layout>
+
+    <app-drawer>
+      <content select=".checklist"></content>
+    </app-drawer>
+
+    <content select="main"></content>
+  </app-drawer-layout>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'dev-checklist'
+
+    });
+  </script>
+</dom-module>

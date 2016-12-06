@@ -1,0 +1,224 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-meta/iron-meta.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<!--
+
+The `iron-pattern` element displays a pattern. By default a pattern renders as a 24px repeating square.
+
+Example using src:
+
+    <iron-pattern src="star.png"></iron-pattern>
+
+Example setting size to 32px x 32px:
+
+    <iron-pattern class="big" src="big_star.png"></iron-pattern>
+
+    <style is="custom-style">
+      .big {
+        --iron-pattern-height: 32px;
+        --iron-pattern-width: 32px;
+      }
+    </style>
+
+The iron-pattern elements include several sets of patterns.
+To use the default set of patterns, import `iron-patterns.html` and use the `pattern` attribute to specify a pattern:
+
+    <link rel="import" href="/components/iron-patterns/iron-patterns.html">
+
+    <iron-pattern pattern="menu"></iron-pattern>
+
+To use a different built-in set of patterns, import the specific `iron-patterns/<patternset>-patterns.html`, and
+specify the pattern as `<patternset>:<pattern>`. For example, to use a communication pattern, you would
+use:
+
+    <link rel="import" href="/components/iron-patterns/communication-patterns.html">
+
+    <iron-pattern pattern="communication:email"></iron-pattern>
+
+You can also create custom pattern sets of bitmap or SVG patterns.
+
+Example of using an pattern named `cherry` from a custom patternset with the ID `fruit`:
+
+    <iron-pattern pattern="fruit:cherry"></iron-pattern>
+
+See [iron-patterns](iron-patterns) and [iron-patternset-svg](iron-patternset-svg) for more information about
+how to create a custom patternset.
+
+See the [iron-patterns demo](iron-patterns?view=demo:demo/index.html) to see the patterns available
+in the various patternsets.
+
+To load a subset of patterns from one of the default `iron-patterns` sets, you can
+use the [poly-pattern](https://poly-pattern.appspot.com/) tool. It allows you
+to select individual patterns, and creates an patternset from them that you can
+use directly in your elements.
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--iron-pattern` | Mixin applied to the pattern | {}
+`--iron-pattern-width` | Width of the pattern | `24px`
+`--iron-pattern-height` | Height of the pattern | `24px`
+`--iron-pattern-fill-color` | Fill color of the svg pattern | `currentcolor`
+`--iron-pattern-stroke-color` | Stroke color of the svg pattern | none
+
+@group iron-pattern elements
+@element iron-pattern
+@demo demo/index.html
+-->
+
+<dom-module id="iron-pattern">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+
+        fill: var(--iron-pattern-fill-color, currentcolor);
+        stroke: var(--iron-pattern-stroke-color, none);
+        width: var(--iron-pattern-width, 100%);
+        height: var(--iron-pattern-height, 100%);
+        
+        @apply(--iron-pattern);
+      }
+
+      .pattern-overlay {
+        @apply(--layout-fit);
+        @apply(--iron-pattern-overlay);
+      }
+
+      .pattern-content {
+        width: 100%;
+        height: 100%;
+        @apply(--iron-pattern-content);
+      }
+    </style>
+
+    <div class="pattern-overlay">
+      <div class="pattern-content">
+
+        <content></content>
+
+      </div>
+    </div>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'iron-pattern',
+
+      properties: {
+
+        /**
+         * The name of the pattern to use. The name should be of the form:
+         * `patternset_name:pattern_name`.
+         */
+        pattern: {
+          type: String
+        },
+
+        /**
+         * The name of the theme to used, if one is specified by the
+         * patternset.
+         */
+        theme: {
+          type: String
+        },
+
+        /**
+         * If using iron-pattern without an patternset, you can set the src to be
+         * the URL of an individual pattern image file. Note that this will take
+         * precedence over a given pattern attribute.
+         */
+        src: {
+          type: String
+        },
+
+        /**
+         * @type {!Polymer.IronMeta}
+         */
+        _meta: {
+          value: Polymer.Base.create('iron-meta', {type: 'patternset'})
+        }
+
+      },
+
+      observers: [
+        '_updatepattern(_meta, isAttached)',
+        '_updatepattern(theme, isAttached)',
+        '_srcChanged(src, isAttached)',
+        '_patternChanged(pattern, isAttached)'
+      ],
+
+      _DEFAULT_patternSET: 'patterns',
+
+      _patternChanged: function(pattern) {
+        var parts = (pattern || '').split(':');
+        this._patternName = parts.pop();
+        this._patternsetName = parts.pop() || this._DEFAULT_patternSET;
+        this._updatepattern();
+      },
+
+      _srcChanged: function(src) {
+        this._updatepattern();
+      },
+
+      _usespatternset: function() {
+        return this.pattern || !this.src;
+      },
+
+      /** @suppress {visibility} */
+      _updatepattern: function() {
+        if (this._usespatternset()) {
+          if (this._img && this._img.parentNode) {
+            Polymer.dom(this.root).removeChild(this._img);
+          }
+          if (this._patternName === "") {
+            if (this._patternset) {
+              this._patternset.removepattern(this);
+            }
+          } else if (this._patternsetName && this._meta) {
+            this._patternset = /** @type {?Polymer.patternset} */ (
+              this._meta.byKey(this._patternsetName));
+            if (this._patternset) {
+              this._patternset.applypattern(this, this._patternName, this.theme);
+              this.unlisten(window, 'iron-patternset-added', '_updatepattern');
+            } else {
+              this.listen(window, 'iron-patternset-added', '_updatepattern');
+            }
+          }
+        } else {
+          if (this._patternset) {
+            this._patternset.removepattern(this);
+          }
+          if (!this._img) {
+            this._img = document.createElement('img');
+            this._img.style.width = '100%';
+            this._img.style.height = '100%';
+            this._img.draggable = false;
+          }
+          this._img.src = this.src;
+          Polymer.dom(this.root).appendChild(this._img);
+        }
+      }
+
+    });
+
+  </script>
+
+</dom-module>

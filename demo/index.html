@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>Iron Pattern Demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-tooltip/paper-tooltip.html">
+    <link rel="import" href="../../super-icons/super-icons.html">
+
+    <!-- Iron Patterns -->
+    <link rel="import" href="../iron-patternset-svg.html">
+    <link rel="import" href="../iron-pattern.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    
+      :root {
+          --reset: { box-sizing: border-box; }
+          --h1-sudo: { content: ""; display: block; height: 1px; width: 100px; background: #ccc; };
+          --h1-sudo-left: { position: absolute; top: calc(50% - 1px); right: calc(100% + 10px); };
+          --h1-sudo-right: { position: absolute; top: calc(50% - 1px);left: calc(100% + 10px); };
+      }
+
+      * { @apply(--reset); }
+
+      body { 
+          padding: 5vh 5vw;
+          @apply(--layout); 
+          @apply(--layout-wrap); 
+      }
+
+      h1 { text-align: center; margin: 1rem; position: relative; display: inline-block; margin: 0 auto; text-transform: uppercase; font-weight: 100; font-size: 48px; }
+      h1:before { @apply(--h1-sudo); @apply(--h1-sudo-left); }
+      h1:after { @apply(--h1-sudo); @apply(--h1-sudo-right); }
+
+      h3 { display: inline-block; }
+      h4 { text-align: center; margin: 1rem; position: relative; display: block; width: 100%; margin: 0 auto; text-transform: uppercase; font-weight: 100; font-size: 16px; color: gray; }
+
+      section {
+          padding: 0 2.5vw;
+      }
+      
+      demo-snippet { 
+        --demo-snippet-demo: { max-height: 350px; overflow: auto; };
+        --demo-snippet-code: { height: 100%; max-height: 350px; overflow: auto; };
+      }
+
+      paper-checkbox {
+        --paper-checkbox-checked-color: var(--paper-blue-500);
+        --paper-checkbox-checked-ink-color: var(--paper-blue-500);
+        --paper-checkbox-unchecked-color: var(--paper-blue-900);
+        --paper-checkbox-unchecked-ink-color: var(--paper-blue-900);
+        --paper-checkbox-label-color: var(--paper-blue-500);
+        --paper-checkbox-label-checked-color: lime;
+      }
+
+      iron-icon { color: #2196f3; }
+
+      paper-tooltip {
+        width: 220px;
+        
+
+        --paper-tooltip-background: black;
+        --paper-tooltip-text-color: white;
+        --paper-tooltip: {
+          font-size: 12px;
+          line-height: 1.2;
+        };
+      }
+
+      paper-tooltip code {
+        color: #2196f3;
+      }
+      
+      paper-tooltip code:before { content: "<"; }
+      paper-tooltip code:after { content: ">"; }
+
+      .brackets:before { content: "<"; }
+      .brackets:after { content: ">"; }
+
+      .full { 
+          width: 100vw;
+      }
+
+      .half {
+          width: 50%; 
+      }
+
+      .vertical-section-container { display: block; width: 100%; min-width: 100%; }
+      .padding { padding: 1rem; box-sizing: border-box; }
+
+      .pattern-overlay {
+        @apply(--layout-fit);
+      }
+
+      .flex-layout {
+        width: 100%;
+        height: 100%;
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+      }
+
+      .flex-item {
+        background: rgba(0,0,0, .5);
+        color: white;
+        display: inline-block;
+        text-transform: uppercase;
+        padding: .15rem .5rem;
+      }
+
+      .pattern-container > svg {
+        transition: .22s transform ease-in-out;
+      }
+
+      .pattern-container:hover > svg {
+        transform: scale(7,7);
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Iron Patterns</h1>
+    <h4>All Demos</h4>
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+    <section class="full">
+
+      <!-- Iron Pattern Set -->
+      <div class="vertical-section-container centered">
+        <h3 class="brackets">iron-patternset-svg</h3>
+
+        <iron-icon 
+          icon="super-icons:help" 
+          id="help-iron-patternset-svg">
+        </iron-icon>
+
+        <paper-tooltip 
+          for="help-iron-patternset-svg" 
+          position="right" 
+          animation-delay="0">
+          The <code>iron-patternset-svg</code> element works exactly like <code>iron-iconset-svg</code> with a few exceptions.
+        </paper-tooltip>
+
+        <demo-snippet class="first-example">
+          <template>
+            <iron-patternset-svg name="demo">
+              <svg>
+                <defs>
+                  
+                  <!--  Hexagons -->
+                  <pattern id="hexagons" width="28" height="50" patternUnits="userSpaceOnUse">
+                    <rect width="28" height="50" fill="#fdfd60"></rect>
+                    <path d="M14 33L0 25L0 8L14 0L28 8L28 25L14 33L14 50" fill="none" stroke="#006644" stroke-width="2"></path>
+                  </pattern>
+                  
+                  <!-- Carbon Fiber -->
+                  <pattern id="carbon-fiber" width="15" height="15" patternUnits="userSpaceOnUse">
+                    <rect width="50" height="50" fill="#282828"></rect>
+                    <circle cx="3" cy="4.3" r="1.8" fill="#393939"></circle>
+                    <circle cx="3" cy="3" r="1.8" fill="black"></circle>
+                    <circle cx="10.5" cy="12.5" r="1.8" fill="#393939"></circle>
+                    <circle cx="10.5" cy="11.3" r="1.8" fill="black"></circle>
+                  </pattern>
+                  
+                  <!-- Transparency -->
+                  <pattern id="transparency" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <rect width="10" height="10" fill="#fff"></rect>
+                    <rect width="5" height="5" fill="#ccc"></rect>
+                    <rect x="5" y="5" width="5" height="5" fill="#ccc"></rect>
+                  </pattern>
+                  
+                  <!-- diagonal-hatch -->
+                  <pattern id="diagonal-hatch" patternUnits="userSpaceOnUse" width="4" height="4">
+                    <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" stroke="#006644"></path>
+                  </pattern>
+                </defs>
+
+                <!-- Patterns (output) 
+                     In order for the pattern to appear, it must be linked 
+                     from the fill url below, which is dynamically created
+
+                    <rect x="0" y="0" width="100%" height="100%" fill="url(#triangles)"></rect> -->
+
+
+              </svg>
+            </iron-patternset-svg>
+            
+          </template>
+        </demo-snippet>
+      </div>
+
+    </section>
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+    <section class="half">
+
+      <!-- Patterns (Custom Element) -->
+      <div class="vertical-section-container centered">
+        <h3 class="brackets">iron-pattern</h3>
+
+        <iron-icon 
+          icon="super-icons:help" 
+          id="help-iron-patterns">
+        </iron-icon>
+
+        <paper-tooltip 
+          for="help-iron-patterns" 
+          position="right" 
+          animation-delay="0">
+          The <code>iron-pattern</code> custom element works just like the <code>iron-icon</code> custom element.
+        </paper-tooltip>
+        
+        <demo-snippet>
+          <template>
+            <style is="custom-style">
+              iron-pattern { 
+                --iron-pattern-width: 100%;  /* 100% Default */
+                --iron-pattern-height: 72px; /* 100% Default */
+
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+                margin: 0 0 10px;
+                overflow: hidden;
+              }
+            </style>
+            
+            <!-- Patterns (Custom Element) ::::::::::::::::::::::::::::::::::::::::::::: -->
+            <iron-pattern pattern="demo:hexagons">
+              <div class="flex-layout">
+                <span class="flex-item">Hexagons Pattern</span>
+              </div>
+            </iron-pattern>
+
+            <iron-pattern pattern="demo:carbon">
+              <div class="flex-layout">
+                <span class="flex-item">Carbon Pattern</span>
+              </div>
+            </iron-pattern>
+
+            <iron-pattern pattern="demo:transparency">
+              <div class="flex-layout">
+                <span class="flex-item">Transparency Pattern</span>
+              </div>
+            </iron-pattern>
+
+            <iron-pattern pattern="demo:diagonal">
+              <div class="flex-layout">
+                <span class="flex-item">Diagonal Pattern</span>
+              </div>
+            </iron-pattern>
+            
+          </template>
+        </demo-snippet>
+      </div>
+
+    </section>
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+    <section class="half">
+        
+      <!-- Vanilla SVG Pattern -->
+      <div class="vertical-section-container centered">
+        <h3>Vanilla SVG Patterns</h3>
+
+        <iron-icon 
+          icon="super-icons:help" 
+          id="help-vanilla-patterns">
+        </iron-icon>
+
+        <paper-tooltip 
+          for="help-vanilla-patterns" 
+          position="right" 
+          animation-delay="0">
+          These are vanilla SVG patterns for reference.
+        </paper-tooltip>
+
+        <demo-snippet>
+          <template>
+            <style is="custom-style">
+              .pattern-container {
+                position: relative;
+                width: 100%;    /* 100% Default */
+                height: 72px;   /* 100% Default */
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+                margin: 0 0 10px;
+                overflow: hidden;
+              }
+            </style>
+
+            <!-- Patterns (Vanilla SVG) ::::::::::::::::::::::::::::::::::::::::::::: -->
+            <div class="pattern-container">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="vanilla-hexagons" width='28' height='50' patternUnits="userSpaceOnUse">
+                    <rect width='28' height='50' fill='#fdfd60' />
+                    <path d='M14 33L0 25L0 8L14 0L28 8L28 25L14 33L14 50' fill="none" stroke='#006644' stroke-width='2' />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#vanilla-hexagons)" />
+              </svg>
+
+              <div class="pattern-overlay">
+                <div class="flex-layout">
+                  <span class="flex-item">Hexagons Pattern</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="pattern-container">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="vanilla-carbon" width='15' height='15' patternUnits="userSpaceOnUse">
+                    <rect width='50' height='50' fill='#282828' />
+                    <circle cx='3' cy='4.3' r='1.8' fill='#393939' />
+                    <circle cx='3' cy='3' r='1.8' fill='black' />
+                    <circle cx='10.5' cy='12.5' r='1.8' fill='#393939' />
+                    <circle cx='10.5' cy='11.3' r='1.8' fill='black' />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#vanilla-carbon)" />
+              </svg>
+
+              <div class="pattern-overlay">
+                <div class="flex-layout">
+                  <span class="flex-item">Carbon Pattern</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="pattern-container">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="vanilla-transparency" width='10' height='10' patternUnits="userSpaceOnUse">
+                    <rect width='10' height='10' fill='#fff' />
+                    <rect width='5' height='5' fill='#ccc' />
+                    <rect x='5' y='5' width='5' height='5' fill='#ccc' />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#vanilla-transparency)" />
+              </svg>
+
+              <div class="pattern-overlay">
+                <div class="flex-layout">
+                  <span class="flex-item">Transparency Pattern</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="pattern-container">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="vanilla-diagonal" patternUnits="userSpaceOnUse" width="4" height="4" patternUnits="userSpaceOnUse">
+                    <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" stroke="#006644" />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#vanilla-diagonal)" />
+              </svg>
+
+              <div class="pattern-overlay">
+                <div class="flex-layout">
+                  <span class="flex-item">Diagonal Pattern</span>
+                </div>
+              </div>
+            </div>
+
+
+          </template>
+        </demo-snippet>
+      </div>
+
+
+    </section>
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+  </body>
+</html>
