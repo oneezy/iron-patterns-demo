@@ -2,7 +2,11 @@ _[Demo and API Docs](https://oneezy.github.io/iron-patterns-demo)_
 
 # Iron Patterns Demo
 
-[![Build Status](https://travis-ci.org/oneezy/iron-patterns-demo.svg?branch=master)](https://travis-ci.org/oneezy/iron-patterns-demo)
+[![Build Status](https://travis-ci.org/iron-patterns-demo.svg?branch=master)](https://travis-ci.org/iron-patterns-demo)
+[![GitHub release](https://img.shields.io/github/release/iron-patterns-demo.svg)](https://github.com/iron-patterns-demo/releases)
+[![license](https://img.shields.io/github/license/iron-patterns-demo.svg)](https://github.com/iron-patterns-demo/blob/master/LICENSE)
+[![](https://img.shields.io/github/issues-raw/iron-patterns-demo.svg)](https://github.com/iron-patterns-demo/issues)
+
 
 ## Install the Polymer-CLI
 

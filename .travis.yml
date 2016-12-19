@@ -1,4 +1,5 @@
 language: node_js
+node_js: stable
 sudo: required
 dist: trusty
 addons:
@@ -8,20 +9,29 @@ addons:
     - google-chrome
     packages:
     - google-chrome-stable
-node_js:
-- '7'
-- '6'
-- '5'
-- '4'
-before_script:
+
+cache:
+  directories:
+  - node_modules
+  - "$HOME/.cache/bower"
+
+branches:
+  only:
+    - master
+
+install:
 - npm install -g bower polymer-cli
+- npm install
 - bower install
-- bower install -s oneezy/build-tools
-# - bower install -s https://${GH_TOKEN}@github.com/Collaborne/collaborne-build-tools.git
-- export PATH=$PWD/node_modules/.bin:$PATH
+
+before_script:
+- npm prune
+
 script:
-- xvfb-run polymer test
-after_success: '[ ${TRAVIS_PULL_REQUEST} = "false" ] && [ ${TRAVIS_BRANCH} = "master" ] && bower_components/build-tools/gpages_build.sh oneezy justin@oneezy.com'
-env:
-  global:
-    secure: MZJ29czYcA4S3/gGAjEt8LnecPumhIcM+mLkjBa+kzeSo9MNlXwQ8gnJcPx6/AjMUylK688tzfaK+8juvc6KsUCFTrJX9QCMV2tvUp99tDqol9vbXORUnupCzooXs5wm5Vmw4ECQnGy1VfrQuliKV5rqXr2aTlx5twVX5kzcBWxE32p1SLoScqo+ixvKmz+ERvBfqXYOU3zINZxCv/duM52by3Ph6QXKFILk/aNJUDWeAcxj12QJORwkdDDBgCKd3KjAGkzI33cdcGCOy6hzr5HpNOMldCF369OKHGGxWYpn/zYEkmF/LJwFhMIxmCXFzJ0mLRBiuUjOp0t8/5UcPIT9QJmVDV2COTyxQCv8B16swZRnD9hwuY5zpWhHEs8Vb+71Azp7yL/Zp1WNvdZdYjbI98BPnSHxdkCleRrgW6rBAQibZFDTRYew00+zVGG61pw8R+igEwOAUABu2DY9kziJ5TMczIAcUEoUBtRGl4LYvksT9X26tY9HqRrdxIp2FcRVkCpErOyZ2bFyW3hBxF7xS8HznpsdXG0OO+mGVce47NtMZIlgPPP3GEkxt08fY0Hodl/vOAS1cDwK8E3YBgedkeaoe1RKuujpvPsOTxMRH2Ivayoxfh5VnreIauCapBH2555rt6D6FsQz8LVCzO76SVdSNp/ev7imenldCsA=
+- xvfb-run npm run test:single
+
+after_success:
+- npm run semantic-release
+- if [ ${TRAVIS_PULL_REQUEST} = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+  bower install -s oneezy/build-tools && ./bower_components/build-tools/gpages_build.sh;
+  fi
