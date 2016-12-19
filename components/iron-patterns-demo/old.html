@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>svg-demo demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../app-layout/app-drawer/app-drawer.html">
+    <link rel="import" href="../../app-layout/app-drawer-layout/app-drawer-layout.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../../iron-localstorage/iron-localstorage.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
+
+    <!-- Iron Icons -->
+    <link rel="import" href="../../iron-icon/iron-icon.html">
+    <link rel="import" href="../../iron-iconset-svg/iron-iconset-svg.html">
+
+    <!-- Iron Patterns -->
+    <link rel="import" href="../iron-pattern.html">
+    <link rel="import" href="../iron-patternset-svg.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+      main {             @apply(--layout); padding: 5vh 10vw 0; }
+      main section {     @apply(--layout-vertical); @apply(--layout-flex-auto); }
+
+      demo-snippet { 
+        --demo-snippet-code: { transition: max-height 1s; max-height: 200px; overflow: auto; };
+      }
+
+      app-drawer {
+        z-index: 4;
+        --app-drawer-content-container: { background-color: #f2f2f2;  box-sizing: border-box; };
+      }
+
+        paper-checkbox {
+          --paper-checkbox-checked-color: var(--paper-blue-500);
+          --paper-checkbox-checked-ink-color: var(--paper-blue-500);
+          --paper-checkbox-unchecked-color: var(--paper-blue-900);
+          --paper-checkbox-unchecked-ink-color: var(--paper-blue-900);
+          --paper-checkbox-label-color: var(--paper-blue-500);
+          --paper-checkbox-label-checked-color: lime;
+        }
+
+      .vertical-section-container { width: 400px; }
+      .padding { padding: 1rem; box-sizing: border-box; }
+
+    </style>
+  </head>
+  <body>
+
+
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::: APP DRAWER :::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+  <app-drawer-layout fullbleed>
+    <app-drawer id="drawer">
+      <section class="padding">
+
+        <!-- Heading -->
+        <app-toolbar>
+          <h2>To Do</h2>
+        </app-toolbar>
+
+        <!-- Todo (local storage) -->
+        <template is="dom-bind" id="patternsDemo">
+
+          <iron-localstorage
+            name="pattern-localstorage"
+            value="{{value}}"
+            on-iron-localstorage-load-empty="initializeDefaultValue">
+          </iron-localstorage>
+
+          <paper-checkbox checked="{{value.hasEars::change}}">
+            <paper-input value="{{value.name::change}}" placeholder="Enter words"></paper-input>
+          </paper-checkbox>
+          
+        </template>
+      </section>
+    </app-drawer>
+    
+
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- :::IRON ICONS ::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+    <main>
+    <section>
+
+      <!-- Iron Icon Set -->
+      <div class="vertical-section-container centered">
+        <h3>Iron Icon Set</h3>
+        <demo-snippet>
+          Importing in all the icons for "iron-icon"
+          <template>
+            
+            <iron-iconset-svg name="custom-icons" size="24">
+              <svg>
+                <defs>
+                  <g id="home"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></g>
+                  <g id="menu"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></g>
+                  <g id="phone"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></g>
+                  <g id="map"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></g>
+                  <g id="time"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></g>
+                  <g id="email"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></g>
+                  <g id="build"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></g>
+                </defs>
+              </svg>
+            </iron-iconset-svg>
+            
+          </template>
+        </demo-snippet>
+      </div>
+
+      <!-- Iron Icon -->
+      <div class="vertical-section-container centered">
+        <h3>Iron Icon</h3>
+        <demo-snippet>
+          <template>
+            
+            <iron-icon icon="custom-icons:home"></iron-icon>
+            <iron-icon icon="custom-icons:menu"></iron-icon>
+            <iron-icon icon="custom-icons:phone"></iron-icon>
+            <iron-icon icon="custom-icons:map"></iron-icon>
+            <iron-icon icon="custom-icons:time"></iron-icon>
+            <iron-icon icon="custom-icons:email"></iron-icon>
+            <iron-icon icon="custom-icons:build"></iron-icon>
+            
+          </template>
+        </demo-snippet>
+      </div>
+
+
+      <!-- Vanilla SVG Icon -->
+      <div class="vertical-section-container centered">
+        <h3>Vanilla SVG Icon</h3>
+        <demo-snippet>
+          <template>
+
+            <style>
+              .my-icon { width: 24px; height: 24px; display: inline-block; }
+            </style>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="home"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></g>
+              </svg>
+            </div>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="menu"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></g>
+              </svg>
+            </div>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="phone"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></g>
+              </svg>
+            </div>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="map"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></g>
+              </svg>
+            </div>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="time"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></g>
+              </svg>
+            </div>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="email"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></g>
+              </svg>
+            </div>
+
+            <div class="my-icon">
+              <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                <g id="build"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></g>
+              </svg>
+            </div>
+
+          </template>
+        </demo-snippet>
+      </div>
+
+
+
+    </section>
+
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::: IRON PATTERN ::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+    <section>
+
+
+      <!-- Iron Pattern Set -->
+      <div class="vertical-section-container centered">
+        <h3>Iron Pattern Set</h3>
+        <demo-snippet>
+          Importing in all the patterns for "iron-pattern"
+          <template>
+            
+            <iron-patternset-svg name="custom-pattern" size="24">
+              <svg>
+                <defs>
+                  <g id="home"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></g>
+                  <g id="menu"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></g>
+                  <g id="phone"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></g>
+                  <g id="map"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></g>
+                  <g id="time"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></g>
+                  <g id="email"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></g>
+                  <g id="build"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></g>
+                </defs>
+              </svg>
+            </iron-patternset-svg>
+            
+          </template>
+        </demo-snippet>
+      </div>
+
+      <!-- Iron Pattern -->
+      <div class="vertical-section-container centered">
+        <h3>Iron Pattern</h3>
+        <demo-snippet>
+          <template>
+            
+            <iron-pattern pattern="custom-pattern:home"></iron-pattern>
+            <iron-pattern pattern="custom-pattern:menu"></iron-pattern>
+            <iron-pattern pattern="custom-pattern:phone"></iron-pattern>
+            <iron-pattern pattern="custom-pattern:map"></iron-pattern>
+            <iron-pattern pattern="custom-pattern:time"></iron-pattern>
+            <iron-pattern pattern="custom-pattern:email"></iron-pattern>
+            <iron-pattern pattern="custom-pattern:build"></iron-pattern>
+            
+          </template>
+        </demo-snippet>
+      </div>
+
+
+      <!-- Vanilla SVG Pattern -->
+      <div class="vertical-section-container centered">
+        <h3>Vanilla SVG Pattern</h3>
+        <demo-snippet>
+          <template>
+            <style>
+              .svg-pattern { height: 48px; width: 100%; margin: 0 0 1rem; }
+            </style>
+
+
+            <!-- Home ::::::::::::::::::::::::::::::::::::::::::::: -->
+            <div class="svg-pattern">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="triangles" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <rect width="10" height="10" fill="#d8d18a" />
+                    <polygon points="5,0 10,10 0,10" fill="#7db1d8" />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#triangles)" />
+              </svg>
+            </div>
+
+
+            <div class="svg-pattern">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="colored-hexagons" width='28' height='50' patternUnits="userSpaceOnUse">
+                    <rect width='28' height='50' fill='#fdfd60' />
+                    <path d='M14 33L0 25L0 8L14 0L28 8L28 25L14 33L14 50' fill="none" stroke='#006644' stroke-width='2' />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#colored-hexagons)" />
+              </svg>
+            </div>
+
+
+            <div class="svg-pattern">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="carbon-fiber" width='15' height='15' patternUnits="userSpaceOnUse">
+                    <rect width='50' height='50' fill='#282828' />
+                    <circle cx='3' cy='4.3' r='1.8' fill='#393939' />
+                    <circle cx='3' cy='3' r='1.8' fill='black' />
+                    <circle cx='10.5' cy='12.5' r='1.8' fill='#393939' />
+                    <circle cx='10.5' cy='11.3' r='1.8' fill='black' />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#carbon-fiber)" />
+              </svg>
+            </div>
+
+
+            <div class="svg-pattern">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="transparency" width='10' height='10' patternUnits="userSpaceOnUse">
+                    <rect width='10' height='10' fill='#fff' />
+                    <rect width='5' height='5' fill='#ccc' />
+                    <rect x='5' y='5' width='5' height='5' fill='#ccc' />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#transparency)" />
+              </svg>
+            </div>
+
+
+            <div class="svg-pattern">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="diagonal-hatch" patternUnits="userSpaceOnUse" width="4" height="4" patternUnits="userSpaceOnUse">
+                    <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" stroke="#006644" />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#diagonal-hatch)" />
+              </svg>
+            </div>
+
+
+            <div class="svg-pattern">
+              <svg width="100%" height="100%">
+                <defs>
+                  <pattern id="cross-hatch" patternUnits="userSpaceOnUse" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+                    <path d="M0,0 l10,10" fill="none" stroke="#22fa23" stroke-width="1" />
+                    <path d="M10,0 l-10,10" fill="none" stroke="#22fa23" stroke-width="1" />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#cross-hatch)" />
+              </svg>
+            </div>
+
+
+          </template>
+        </demo-snippet>
+      </div>
+
+
+    </section>
+    </main>
+    </app-drawer-layout>
+
+    <script>
+      document.querySelector('#patternsDemo').initializeDefaultValue = function(ev) {
+        this.value = {
+          name: "Mickey",
+          hasEars: true
+        }
+      }
+    </script>
+  </body>
+</html>

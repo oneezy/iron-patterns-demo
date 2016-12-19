@@ -1,0 +1,37 @@
+language: node_js
+node_js: stable
+sudo: required
+dist: trusty
+addons:
+  firefox: latest
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+
+cache:
+  directories:
+  - node_modules
+  - "$HOME/.cache/bower"
+
+branches:
+  only:
+    - master
+
+install:
+- npm install -g bower polymer-cli
+- npm install
+- bower install
+
+before_script:
+- npm prune
+
+script:
+- xvfb-run npm run test:single
+
+after_success:
+- npm run semantic-release
+- if [ ${TRAVIS_PULL_REQUEST} = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+  bower install -s oneezy/build-tools && ./bower_components/build-tools/gpages_build.sh;
+  fi

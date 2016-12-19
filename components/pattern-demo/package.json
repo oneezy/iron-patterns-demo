@@ -1,0 +1,30 @@
+{
+  "name": "iron-patterns-demo",
+  "version": "0.0.0-development",
+  "description": "_[Demo and API Docs](https://oneezy.github.io/iron-patterns-demo)_",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "commit": "git-cz",
+    "test:single": "polymer test",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "author": "Justin O'Neill",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oneezy/iron-patterns-demo.git"
+  },
+  "devDependencies": {
+    "commitizen": "^2.9.0",
+    "cz-conventional-changelog": "^1.2.0",
+    "semantic-release": "^6.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
