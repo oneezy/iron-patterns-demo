@@ -18,7 +18,7 @@
     "url": "https://github.com/oneezy/iron-patterns-demo.git"
   },
   "devDependencies": {
-    "commitizen": "^2.9.0",
+    "commitizen": "^4.0.1",
     "cz-conventional-changelog": "^1.2.0",
     "semantic-release": "^6.3.2"
   },
